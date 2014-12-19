@@ -274,9 +274,10 @@
       }
 
       this.$menu
-        .on('click', $.proxy(this.click, this))
-        .on('mouseenter', 'li', $.proxy(this.mouseenter, this))
-        .on('mouseleave', 'li', $.proxy(this.mouseleave, this));
+        .on('click','li', $.proxy(this.click, this))
+        .on('mouseenter', $.proxy(this.mouseenter, this))
+        .on('mouseleave', $.proxy(this.mouseleave, this))
+        .on('mouseover','li',$.proxy(this.mouseover,this));
     },
     
     destroy : function () {
@@ -402,7 +403,11 @@
 
     mouseleave: function (e) {
       this.mousedover = false;
-      if (!this.focused && this.shown) this.hide();
+    },
+
+    mouseover: function(e){
+      this.$menu.find('.active').removeClass('active');
+      $(e.currentTarget).addClass('active');
     }
 
   };
